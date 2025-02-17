@@ -1,0 +1,10 @@
+name: taddib3-compose
+
+services:
+  app:
+    image: taddib3-image
+    container_name: taddib3-container
+    ports:
+      - "8001:8000"
+    volumes:
+      - .:/app
