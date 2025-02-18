@@ -1,0 +1,28 @@
+{#{% block content %}#}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TADDIB</title>
+    </head>
+    <body>
+    <header>
+        <h1>Menu Page</h1>
+        <h1><a>Confirmation Page</a></h1>
+    </header>
+
+    <p>Menu items will be displayed here.</p>
+
+    {% for x in menu_items %}
+        <article>
+            <h2><a href="">{{ x.name }}</a></h2>
+            <p>{{ x.description }}</p>
+        </article>
+    {% endfor %}
+{#    <p>#}
+{#        {% for x in menu_items %}#}
+{#        {{ x | linebreaksbr }}#}
+{#        {% endfor %}#}
+{#    </p>#}
+    </body>
+</html>

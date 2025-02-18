@@ -35,7 +35,7 @@ class Customization(models.Model):
     extra_cost = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return f'{self.item.name} ({self.meat} , {self.spice_level})'
+        return f'{self.item.name} ( meat-{self.meat} , spicy-{self.spice_level})'
 
 class UserOrder(models.Model):
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
