@@ -1,0 +1,10 @@
+{% extends 'order/base.html' %}
+
+{% block content %}
+    <h2 style="text-align: center">Customization page</h2>
+    <article >
+        <h3>name: {{ menu_list.name }}</h3>
+        <p>{{ menu_list.description}}</p>
+        <h3>{{ menu_list.base_price }}</h3>
+    </article>
+{% endblock %}
