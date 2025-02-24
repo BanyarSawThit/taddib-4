@@ -5,6 +5,37 @@
     <article >
         <h3>name: {{ item.name }}</h3>
         <p>{{ item.description}}</p>
-        <h3>{{ item.base_price }}</h3>
+        <h3>Base Price: $<span id="base-price"></span>{{ item.base_price }}</h3>
+        <h3>Total Price: $<span id="total-price">{{ item.base_price }}</span></h3>
     </article>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const basePrice = parseFloat("{{ item.base_price }}");  // Get base price from Django
+            const meatSelect = document.getElementById("id_meat");
+            const spiceSelect = document.getElementById("id_spice_level");
+            const totalPriceElement = document.getElementById("total-price");
+
+            function updatePrice() {
+                let extraCost = 0;
+
+                // Define extra cost based on selected options
+                if (meatSelect.value === "Beef") extraCost += 2.00;
+                if (spiceSelect.value === "High") extraCost += 1.00;
+
+                let newTotalPrice = basePrice + extraCost;
+                totalPriceElement.textContent = newTotalPrice.toFixed(2);
+            }
+
+            meatSelect.addEventListener("change", updatePrice);
+            spiceSelect.addEventListener("change", updatePrice);
+        });
+    </script>
+
 {% endblock %}
