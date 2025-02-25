@@ -2,6 +2,8 @@
 
 {% block content %}
     <h2>Table Selection</h2>
+    <h3>Host: Manager</h3>
+    <br>
     {% for table in tables %}
         <article>
             <h3><a href="{% url 'menu_page' table_id=table.pk %}">{{ table.table_number }}</a></h3>
