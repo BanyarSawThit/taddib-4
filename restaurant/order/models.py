@@ -23,7 +23,7 @@ class Category(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     # image = models.ImageField(upload_to='images/')
     base_price = models.DecimalField(max_digits=5, decimal_places=2)

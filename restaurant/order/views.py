@@ -17,6 +17,7 @@ def menu_page(request, table_id):
 def customization_page(request, table_id, item_id):
     form = CustomizationForm()
     item = get_object_or_404(Item, pk=item_id)
+    table = get_object_or_404(Table, pk=table_id)
 
     if request.method == 'POST':
         form = CustomizationForm(request.POST)
@@ -24,7 +25,7 @@ def customization_page(request, table_id, item_id):
             customization = form.save(commit=False)
             customization.item = item
             customization.save()
-            return render(request, 'order/customization_page.html', {'item':item, 'table_id': table_id})
+            return render(request, 'order/customization_page.html', {'item':item, 'form': form, 'table_id': table_id})
         else:
             form = CustomizationForm()
 
