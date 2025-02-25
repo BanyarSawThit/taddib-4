@@ -11,7 +11,16 @@
 
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+{#        {{ form.as_p }}#}
+        <p>Select Meat Type:</p>
+        {% for meat in form.meat %}
+            <label>{{ meat.tag }} {{ meat.choice_label }}</label><br>
+        {% endfor %}
+
+        <p>Select Spice Level:</p>
+        {% for spice in form.spice_level %}
+            <label>{{ spice.tag }} {{ spice.choice_label }}</label><br>
+        {% endfor %}
         <button type="submit">Submit</button>
     </form>
 
