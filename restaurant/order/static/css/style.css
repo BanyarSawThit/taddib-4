@@ -1,6 +1,176 @@
+/*h1 {*/
+/*    color: #631998;*/
+/*}*/
+/*h2 {*/
+/*    text-align: center;*/
+/*}*/
+
+/*h1 {*/
+/*    color: #ffffff; !* Text color *!*/
+/*    font-family: 'Arial', sans-serif;*/
+/*    font-size: 2.5rem;*/
+/*    letter-spacing: 1px;*/
+/*    text-align: center; !* Centers the text horizontally *!*/
+/*    display: flex;*/
+/*    justify-content: center; !* Centers horizontally if the element is inside a flex container *!*/
+/*    align-items: center; !* Centers vertically if inside a flex container *!*/
+/*    height: 10vh; !* Full viewport height *!*/
+/*    margin: 0; !* Removes default margin *!*/
+/*    background-color: #DA7C2B; !* Different background color for h1 *!*/
+/*    padding: 20px; !* Adds space around the text *!*/
+/*}*/
+
+/*!* Link inside h1 (anchor tag) *!*/
+/*h1 a {*/
+/*    color: white; !* Changes the text color of the link inside h1 *!*/
+/*    text-decoration: none; !* Removes underline from the link *!*/
+/*}*/
+
+/*a {*/
+/*    color: #030000; !* Changes the text color of the link inside h1 *!*/
+/*    text-decoration: none; !* Removes underline from the link *!*/
+/*}*/
+
+/*!* Optional: Style the link on hover *!*/
+/*h1 a:hover {*/
+/*    color: #5b3001; !* Changes the color of the link when hovered *!*/
+/*}*/
+
+/*h2 {*/
+/*    text-align: center;*/
+/*    color: #333; !* Added color for better contrast *!*/
+/*    font-family: 'Arial', sans-serif; !* Added font for consistency *!*/
+/*    font-size: 1.8rem; !* Set a specific font size *!*/
+/*    margin-top: 20px; !* Added space above the heading *!*/
+/*}*/
+
+/*!* Body background color *!*/
+/*body {*/
+/*    background-color: #ffffff; !* Test background color *!*/
+/*    color: #030000; !* Optional: changes text color for contrast *!*/
+/*}*/
+
 h1 {
     color: #631998;
 }
 h2 {
     text-align: center;
+}
+
+/*Side-bar*/
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* Container */
+.container {
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 80px;
+    background: linear-gradient(to bottom, #f6a828, #d78c0e);
+    padding: 10px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding-top: 20px;
+}
+
+.category-btn {
+    background-color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+}
+
+.category-btn img {
+    width: 40px;
+    height: 40px;
+}
+
+.category-btn:hover {
+    background-color: #f6a828;
+}
+
+/* Menu Container */
+.menu-container {
+    margin-left: 100px; /* Ensure it doesn't overlap with the sidebar */
+    padding: 20px;
+    width: 100%;
+}
+
+.menu-category {
+    margin-bottom: 40px;
+}
+
+h2 {
+    color: #444;
+}
+
+h3 {
+    color: #555;
+}
+
+/* Menu Items */
+.menu-item {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    width: 200px;
+}
+
+.menu-item img {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.menu-item h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.menu-item p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #d78c0e;
+}
+
+.select-btn {
+    display: block;
+    padding: 8px;
+    background-color: #d78c0e;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.select-btn:hover {
+    background-color: #b06a0f;
 }

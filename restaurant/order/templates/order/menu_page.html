@@ -1,13 +1,53 @@
 {% extends 'order/base.html' %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 {% block content %}
-    <h2>Menu page</h2>
-    {% for x in menu_items %}
-        <article>
-            <h3><a href="{% url 'customization_page' table_id=table_id item_id=x.pk %}">{{ x.name }}</a></h3>
-{#              <h3><a href="{% url 'customization_page' %}?table_id={{ table_id }}&item_id={{ x.pk }}">{{ x.name }}</a></h3>#}
-            <p>{{ x.description }}</p>
-        </article>
-        <br>
-    {% endfor %}
+<div class="container">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        {% for category in categories %}
+            <button class="category-btn" data-category="{{ category.id }}">
+                <img src="{{ category.icon_path.url }}" alt="{{ category.category_title }}">
+            </button>
+        {% endfor %}
+    </nav>
+</div>
+
+<div class="menu-container">
+    <h2>Menu</h2>
+
+    <div class="menu-grid">
+        {% for x in menu_items %}
+        <div class="menu-item" data-category="{{ x.category.id }}">
+            <img src="{{ x.image.url }}" alt="{{ x.name }}">
+            <h3>{{ x.name }}</h3>
+            <p>${{ x.base_price }}</p>
+            <a href="{% url 'customization_page' table_id=table_id item_id=x.pk %}" class="select-btn">Select</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const categoryBtns = document.querySelectorAll(".category-btn");
+        const menuItems = document.querySelectorAll(".menu-item");
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const selectedCategory = btn.getAttribute("data-category");
+
+                menuItems.forEach(item => {
+                    if (selectedCategory === "all" || item.getAttribute("data-category") === selectedCategory) {
+                        item.style.display = "block";
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+            });
+        });
+    });
+</script>
 {% endblock %}
