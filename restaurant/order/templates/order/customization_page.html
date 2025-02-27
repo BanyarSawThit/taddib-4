@@ -48,7 +48,7 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // ✅ Fix: Ensure base price is correctly parsed
+        // Ensure base price is correctly parsed
         const basePrice = parseFloat("{{ item.base_price|default:0 }}".replace(',', '.')) || 0;
 
         let selectedMeat = document.getElementById("selected-meat");
@@ -83,7 +83,7 @@
             });
         }
 
-        // ✅ Fix: Now correctly updating prices
+        // Fix: Now correctly updating prices
         setupOptionButtons("meat-options", selectedMeat, "selectedMeatPrice");
         setupOptionButtons("spicy-options", selectedSpicy, "selectedSpicyPrice");
 
@@ -101,7 +101,7 @@
             }
         });
 
-        updatePrice();  // ✅ Ensure the price is set correctly at the start
+        updatePrice();  // Ensure the price is set correctly at the start
         });
     </script>
 
