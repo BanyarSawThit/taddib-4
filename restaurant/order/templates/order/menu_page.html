@@ -4,6 +4,7 @@
     <h2>Menu page</h2>
     {% for x in menu_items %}
         <article>
+            <img src="{{ x.item_image.url }}" alt="{{ x.name }}" width="100" height="100">
             <h3><a href="{% url 'customization_page' table_id=table_id item_id=x.pk %}">{{ x.name }}</a></h3>
 {#              <h3><a href="{% url 'customization_page' %}?table_id={{ table_id }}&item_id={{ x.pk }}">{{ x.name }}</a></h3>#}
             <p>{{ x.description }}</p>

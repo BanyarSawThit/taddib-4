@@ -3,6 +3,7 @@
 {% block content %}
     <h2>Customization page</h2>
     <article >
+        <img src="{{ item.item_image.url }}" alt="{{ item.name }}" width="100" height="100">
         <h3>name: {{ item.name }}</h3>
         <p>{{ item.description}}</p>
         <h3>Base Price: $<span id="base-price"></span>{{ item.base_price }}</h3>
@@ -12,39 +13,128 @@
     <form method="POST">
         {% csrf_token %}
 {#        {{ form.as_p }}#}
-        <p>Select Meat Type:</p>
-        {% for meat in form.meat %}
-            <label>{{ meat.tag }} {{ meat.choice_label }}</label><br>
-        {% endfor %}
+        <!-- Meat Type Selection -->
+        {% if item.has_meat_options %}
+            <h4>Choose Meat Type:</h4>
+            <div class="button-group" id="meat-options">
+                <button type="button" class="option-btn" data-value="None" data-extra="0">No Meat</button>
+                <button type="button" class="option-btn" data-value="Beef" data-extra="2">Beef (+$2)</button>
+                <button type="button" class="option-btn" data-value="Chicken" data-extra="1.5">Chicken (+$1.5)</button>
+            </div>
+            <input type="hidden" name="meat" id="selected-meat" value="None">
+        {% endif %}
 
-        <p>Select Spice Level:</p>
-        {% for spice in form.spice_level %}
-            <label>{{ spice.tag }} {{ spice.choice_label }}</label><br>
-        {% endfor %}
-        <button type="submit">Submit</button>
+        <!-- Spicy Level Selection -->
+        {% if item.has_spicy_options %}
+            <h4>Choose Spicy Level:</h4>
+            <div class="button-group" id="spicy-options">
+                <button type="button" class="option-btn" data-value="Mild" data-extra="0">Mild</button>
+                <button type="button" class="option-btn" data-value="Medium" data-extra="0.5">Medium (+$0.5)</button>
+                <button type="button" class="option-btn" data-value="High" data-extra="1">High (+$1)</button>
+            </div>
+            <input type="hidden" name="spicy_level" id="selected-spicy" value="Mild">
+        {% endif %}
+
+        <!-- Quantity Selector -->
+        <h4>Quantity:</h4>
+        <div class="quantity-selector">
+            <button type="button" id="decrease-qty">-</button>
+            <span id="quantity">1</span>
+            <button type="button" id="increase-qty">+</button>
+        </div>
+
+        <button type="submit">Add to Cart</button>
     </form>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const basePrice = parseFloat("{{ item.base_price }}");  // Get base price from Django
-            const meatSelect = document.getElementById("id_meat");
-            const spiceSelect = document.getElementById("id_spice_level");
-            const totalPriceElement = document.getElementById("total-price");
+    document.addEventListener('DOMContentLoaded', function () {
+        // ✅ Fix: Ensure base price is correctly parsed
+        const basePrice = parseFloat("{{ item.base_price|default:0 }}".replace(',', '.')) || 0;
 
-            function updatePrice() {
-                let extraCost = 0;
+        let selectedMeat = document.getElementById("selected-meat");
+        let selectedSpicy = document.getElementById("selected-spicy");
+        let quantityElement = document.getElementById("quantity");
+        let totalPriceElement = document.getElementById("total-price");
 
-                // Define extra cost based on selected options
-                if (meatSelect.value === "Beef") extraCost += 2.00;
-                if (spiceSelect.value === "High") extraCost += 1.00;
+        let selectedMeatPrice = 0;
+        let selectedSpicyPrice = 0;
+        let selectedQty = 1;
 
-                let newTotalPrice = basePrice + extraCost;
-                totalPriceElement.textContent = newTotalPrice.toFixed(2);
+        function updatePrice() {
+            let totalPrice = (basePrice + selectedMeatPrice + selectedSpicyPrice) * selectedQty;
+            totalPriceElement.textContent = totalPrice.toFixed(2);
+        }
+
+        function setupOptionButtons(groupId, hiddenInput, priceVar) {
+            const buttons = document.querySelectorAll(`#${groupId} .option-btn`);
+            buttons.forEach(button => {
+                button.addEventListener("click", function () {
+                    buttons.forEach(btn => btn.classList.remove("selected"));
+                    this.classList.add("selected");
+
+                    hiddenInput.value = this.dataset.value;
+                    if (groupId === "meat-options") {
+                        selectedMeatPrice = parseFloat(this.dataset.extra) || 0;
+                    } else if (groupId === "spicy-options") {
+                        selectedSpicyPrice = parseFloat(this.dataset.extra) || 0;
+                    }
+                    updatePrice();
+                });
+            });
+        }
+
+        // ✅ Fix: Now correctly updating prices
+        setupOptionButtons("meat-options", selectedMeat, "selectedMeatPrice");
+        setupOptionButtons("spicy-options", selectedSpicy, "selectedSpicyPrice");
+
+        document.getElementById("increase-qty").addEventListener("click", function () {
+            selectedQty++;
+            quantityElement.textContent = selectedQty;
+            updatePrice();
+        });
+
+        document.getElementById("decrease-qty").addEventListener("click", function () {
+            if (selectedQty > 1) {
+                selectedQty--;
+                quantityElement.textContent = selectedQty;
+                updatePrice();
             }
+        });
 
-            meatSelect.addEventListener("change", updatePrice);
-            spiceSelect.addEventListener("change", updatePrice);
+        updatePrice();  // ✅ Ensure the price is set correctly at the start
         });
     </script>
+
+    <style>
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .option-btn {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .option-btn.selected {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-selector button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
 
 {% endblock %}
