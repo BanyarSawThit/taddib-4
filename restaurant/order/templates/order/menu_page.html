@@ -1,63 +1,14 @@
 {% extends 'order/base.html' %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-
 {% block content %}
-    <div class="container">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            {% for category in categories %}
-                <button class="category-btn" data-category="{{ category.id }}">
-                    <img src="{{ category.icon_path.url }}" alt="{{ category.category_title }}">
-                    <span>{{ category.category_title }}</span>
-                </button>
-            {% endfor %}
-        </nav>
-
-        <div class="menu-container">
-            <h2>Menu</h2>
-
-            {% for category in categories %}
-                <div class="category-section" id="category-{{ category.id }}">
-                    <h3>{{ category.category_title }}</h3>
-
-                    <div class="menu-grid">
-                        {% for x in menu_items %}
-                            {% if x.category.id == category.id %}
-                                <div class="menu-item" data-category="{{ x.category.id }}">
-                                    <img src="{{ x.image.url }}" alt="{{ x.name }}">
-                                    <h3>{{ x.name }}</h3>
-                                    <p>${{ x.base_price }}</p>
-                                    <a href="{% url 'customization_page' table_id=table_id item_id=x.pk %}" class="select-btn">Select</a>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const categoryBtns = document.querySelectorAll(".category-btn");
-
-            categoryBtns.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    const selectedCategory = btn.getAttribute("data-category");
-                    const categorySection = document.getElementById('category-' + selectedCategory);
-
-                    // Scroll to the section of the selected category
-                    if (categorySection) {
-                        categorySection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+    <h2>Menu page</h2>
+    {% for x in menu_items %}
+        <article>
+            <img src="{{ x.item_image.url }}" alt="{{ x.name }}" width="100" height="100">
+            <h3><a href="{% url 'customization_page' table_id=table_id item_id=x.pk %}">{{ x.name }}</a></h3>
+{#              <h3><a href="{% url 'customization_page' %}?table_id={{ table_id }}&item_id={{ x.pk }}">{{ x.name }}</a></h3>#}
+            <p>{{ x.description }}</p>
+        </article>
+        <br>
+    {% endfor %}
 {% endblock %}
-
