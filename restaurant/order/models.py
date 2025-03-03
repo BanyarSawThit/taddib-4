@@ -14,6 +14,7 @@ class Table(models.Model):
 # Salad, Dishes, Soup, Desserts, Drinks
 class Category(models.Model):
     category_title = models.CharField(max_length=100)
+    cate_image = models.ImageField(default='taddib-icon.jpeg', blank=True)
 
     def __str__(self):
         return self.category_title

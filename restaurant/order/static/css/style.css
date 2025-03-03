@@ -237,3 +237,20 @@ h3 {
     cursor: pointer;
 }
 /*customization_page button style ends here*/
+
+/*popup style*/
+.popup {
+    position: fixed;
+    top:80%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    z-index: 1000;
+    animation: fadeIn 0.5s;
+}
+/*popup style end*/
