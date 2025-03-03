@@ -6,7 +6,6 @@
             {% for category in categories %}
                 <button class="category-btn" data-category="{{ category.id }}">
                     <img src="{{ category.cate_image.url }}" alt="{{ category.category_title }}">
-                    <span>{{ category.category_title }}</span>
                 </button>
             {% endfor %}
         </nav>
