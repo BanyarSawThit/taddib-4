@@ -1,34 +1,139 @@
-# Python
-*.pyc
-*~
-__pycache__
+# -------------------------------------------------------------------
+# 1. Python & Build Artifacts
+# -------------------------------------------------------------------
+# Byte-compiled / optimized / DLL files
+_pycache_/
+*.py[cod]
+*$py.class
+*.so
 
-# Env
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+
+# -------------------------------------------------------------------
+# 2. Environments
+# -------------------------------------------------------------------
 .env
-myvenv/
 .venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.env
+*.local
 
-# Database
+
+# -------------------------------------------------------------------
+# 3. Django
+# -------------------------------------------------------------------
+# Ignore local database files
 db.sqlite3
+*.sqlite3
 
-# Static folder at project root
-/static/
+# Logs
+*.log
 
-# macOS
-._*
-.DS_Store
-.fseventsd
-.Spotlight-V100
+# If you keep secrets or local settings in a separate file
+local_settings.py
+
+# Media/uploads if you store them locally
+media/
+# or sometimes:
+# /media/*
+
+# Migrations
+# Generally, you DO want to track migrations in version control.
+# However, if you want to ignore them, uncomment the lines below
+# and keep only the _init_.py in each migrations folder:
+#
+# * Not recommended for production teams, but sometimes used in personal projects *
+# * Usually you keep migrations to sync DB changes among team members *
+#
+# migrations/
+# !migrations/_init_.py
+
+
+# -------------------------------------------------------------------
+# 4. IDE / Editor Config Files
+# -------------------------------------------------------------------
+# PyCharm
 .idea/
-*.zip
-
-# Windows
-Thumbs.db*
-ehthumbs*.db
-[Dd]esktop.ini
-$RECYCLE.BIN/
-
-# Visual Studio
+# VSCode
 .vscode/
-.history/
-*.code-workspace
+# Other editors
+*.swp
+*.swo
+
+
+#----------------------------------------------------------------------------------------------------#
+## Python
+#*.pyc
+#*~
+#__pycache__
+#
+## Env
+#.env
+#myvenv/
+#.venv
+#
+## Database
+#db.sqlite3
+#
+## Static folder at project root
+#/static/
+#
+## macOS
+#._*
+#.DS_Store
+#.fseventsd
+#.Spotlight-V100
+#.idea/
+#*.zip
+#
+## Windows
+#Thumbs.db*
+#ehthumbs*.db
+#[Dd]esktop.ini
+#$RECYCLE.BIN/
+#
+## Visual Studio
+#.vscode/
+#.history/
+#*.code-workspace
