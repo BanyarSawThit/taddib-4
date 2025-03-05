@@ -14,7 +14,7 @@ class Table(models.Model):
 # Salad, Dishes, Soup, Desserts, Drinks
 class Category(models.Model):
     category_title = models.CharField(max_length=100)
-    cate_image = models.ImageField(default='taddib-icon.jpeg', blank=True)
+    # cate_image = models.ImageField(default='taddib-icon.jpeg', blank=True)
 
     def __str__(self):
         return self.category_title
@@ -23,7 +23,7 @@ class Item(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    item_image = models.ImageField(default='supernova.jpg', blank=True)
+    # item_image = models.ImageField(default='supernova.jpg', blank=True)
     base_price = models.DecimalField(max_digits=5, decimal_places=2)
     has_meat_options = models.BooleanField(default=True)
     has_spicy_options = models.BooleanField(default=True)
