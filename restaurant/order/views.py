@@ -29,8 +29,6 @@ def menu_page(request, table_id):
         'selected_category': selected_category
     })
 
-    menu_items = Item.objects.all()
-    return render(request, 'order/menu_page.html', {'menu_items': menu_items, 'table_id': table_id})
 
 def customization_page(request, table_id, item_id):
     form = CustomizationForm()
