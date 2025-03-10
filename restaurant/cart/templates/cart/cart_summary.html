@@ -2,15 +2,6 @@
 
 {% block content %}
 
-    <!-- Sidebar -->
-    <nav class="sidebar">
-        {% for category in categories %}
-            <button class="category-btn" data-category="{{ category.id }}">
-                <img src="{{ category.cate_image.url }}" alt="{{ category.category_title }}">
-            </button>
-        {% endfor %}
-    </nav>
-
     <div class="menu-container">
         <h2>Shopping Cart</h2>
 
