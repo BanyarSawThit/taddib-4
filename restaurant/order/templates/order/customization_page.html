@@ -1,66 +1,68 @@
 {% extends 'order/base.html' %}
 
 {% block content %}
-    <h2>Customization page</h2>
-    <article >
-        <img src="{{ item.item_image.url }}" alt="{{ item.name }}" width="100" height="100">
-        <h3>{{ item.name }}</h3>
-        <p>{{ item.description}}</p>
+<div class="item-header">
+    <img src="{{ item.item_image.url }}" alt="{{ item.name }}" class="item-image">
+    <div class="item-info">
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.description }}</p>
+    </div>
+</div>
 
-    </article>
-
+<div class="customization-section">
     <form method="POST">
         {% csrf_token %}
-{#        {{ form.as_p }}#}
         <!-- Meat Type Selection -->
         {% if item.has_meat_options %}
-            <h4>Meat:</h4>
-            <div class="button-group" id="meat-options">
-                <button type="button" class="option-btn" data-value="None" data-extra="0">No Meat</button>
-                <button type="button" class="option-btn" data-value="Beef" data-extra="2">Beef (+$2)</button>
-                <button type="button" class="option-btn" data-value="Chicken" data-extra="1.5">Chicken (+$1.5)</button>
-            </div>
-            <input type="hidden" name="meat" id="selected-meat" value="None">
+        <h4>Meat:</h4>
+        <div class="button-group" id="meat-options">
+            <button type="button" class="option-btn" data-value="None" data-extra="0">No Meat</button>
+            <button type="button" class="option-btn" data-value="Beef" data-extra="2">Beef (+$2)</button>
+            <button type="button" class="option-btn" data-value="Chicken" data-extra="1.5">Chicken (+$1.5)</button>
+        </div>
+        <input type="hidden" name="meat" id="selected-meat" value="None">
         {% endif %}
 
         <!-- Spicy Level Selection -->
         {% if item.has_spicy_options %}
-            <h4>Spiciness</h4>
-            <div class="button-group" id="spicy-options">
-                <button type="button" class="option-btn" data-value="Mild" data-extra="0">Mild</button>
-                <button type="button" class="option-btn" data-value="Medium" data-extra="0.5">Medium (+$0.5)</button>
-                <button type="button" class="option-btn" data-value="High" data-extra="1">High (+$1)</button>
-            </div>
-            <input type="hidden" name="spicy_level" id="selected-spicy" value="Mild">
+        <h4>Spiciness</h4>
+        <div class="button-group" id="spicy-options">
+            <button type="button" class="option-btn" data-value="Mild" data-extra="0">Mild</button>
+            <button type="button" class="option-btn" data-value="Medium" data-extra="0.5">Medium (+$0.5)</button>
+            <button type="button" class="option-btn" data-value="High" data-extra="1">High (+$1)</button>
+        </div>
+        <input type="hidden" name="spicy_level" id="selected-spicy" value="Mild">
         {% endif %}
 
         <!-- Quantity Selector -->
-{#        <h4>Quantity:</h4>#}
-{#        <div class="quantity-selector">#}
-{#            <button type="button" id="decrease-qty">-</button>#}
-{#            <span id="quantity">1</span>#}
-{#            <button type="button" id="increase-qty">+</button>#}
-{#        </div>#}
-
+        <h4>Quantity:</h4>
+        <div class="quantity-selector">
+            <button type="button" id="decrease-qty">-</button>
+            <span id="quantity">1</span>
+            <button type="button" id="increase-qty">+</button>
+        </div>
 
         <!-- Popup Message -->
         {% if messages %}
-            <div id="popup-message" class="popup">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
+        <div id="popup-message" class="popup">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
         {% endif %}
-        <button type="submit">Add to Cart</button>
 
+        <div class="price-summary">
+            <h3>Base Price: $<span id="base-price">{{ item.base_price }}</span></h3>
+            <h3>Total Price: $<span id="total-price">{{ item.base_price }}</span></h3>
+        </div>
+        <button type="submit" class="add-to-cart-btn-2">Add to Cart</button>
     </form>
 
-        <h3>Base Price: $<span id="base-price"></span>{{ item.base_price }}</h3>
-        <h3>Total Price: $<span id="total-price">{{ item.base_price }}</span></h3>
 
-    <script>
+</div>
+
+<script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Ensure base price is correctly parsed
         const basePrice = parseFloat("{{ item.base_price|default:0 }}".replace(',', '.')) || 0;
 
         let selectedMeat = document.getElementById("selected-meat");
@@ -95,7 +97,6 @@
             });
         }
 
-        // Fix: Now correctly updating prices
         setupOptionButtons("meat-options", selectedMeat, "selectedMeatPrice");
         setupOptionButtons("spicy-options", selectedSpicy, "selectedSpicyPrice");
 
@@ -113,21 +114,17 @@
             }
         });
 
-        updatePrice();  // Ensure the price is set correctly at the start
-        });
+        updatePrice();
+    });
 
-    <!-- Hide Popup Message -->
     document.addEventListener('DOMContentLoaded', function () {
-    const popupMessage = document.getElementById("popup-message");
+        const popupMessage = document.getElementById("popup-message");
 
-    if (popupMessage) {
-        setTimeout(function () {
-            popupMessage.style.display = "none";  // Hide pop-up after 3 seconds
-        }, 3000);
-    }
-});
-
-    </script>
-
-
+        if (popupMessage) {
+            setTimeout(function () {
+                popupMessage.style.display = "none";
+            }, 3000);
+        }
+    });
+</script>
 {% endblock %}
