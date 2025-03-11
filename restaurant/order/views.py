@@ -44,7 +44,8 @@ def customization_page(request, table_id, item_id):
 
             messages.success(request, "Item successfully added to cart!")
 
-            return render(request, 'order/customization_page.html', {'item':item, 'form': form, 'table_id': table_id})
+            # return render(request, 'order/customization_page.html', {'item':item, 'form': form, 'table_id': table_id})
+            return render(request, 'cart/cart_summary.html')
         else:
             form = CustomizationForm()
 

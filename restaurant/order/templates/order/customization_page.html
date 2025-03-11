@@ -5,20 +5,20 @@
     <article >
         <img src="{{ item.item_image.url }}" alt="{{ item.name }}" width="100" height="100">
         <h3>{{ item.name }}</h3>
-        <p>{{ item.description}}</p>
+        <p>{{ item.description }}</p>
 
     </article>
 
-    <form method="POST">
+    <form method="POST" action="{% url 'cart_add' table_id=table_id item_id=item.id %}">
         {% csrf_token %}
-{#        {{ form.as_p }}#}
+
         <!-- Meat Type Selection -->
         {% if item.has_meat_options %}
             <h4>Meat:</h4>
             <div class="button-group" id="meat-options">
                 <button type="button" class="option-btn" data-value="None" data-extra="0">No Meat</button>
-                <button type="button" class="option-btn" data-value="Beef" data-extra="2">Beef (+$2)</button>
                 <button type="button" class="option-btn" data-value="Chicken" data-extra="1.5">Chicken (+$1.5)</button>
+                <button type="button" class="option-btn" data-value="Beef" data-extra="2">Beef (+$2)</button>
             </div>
             <input type="hidden" name="meat" id="selected-meat" value="None">
         {% endif %}
