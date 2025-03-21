@@ -29,8 +29,6 @@ def menu_page(request, table_id):
         'selected_category': selected_category
     })
 
-    menu_items = Item.objects.all()
-    return render(request, 'order/menu_page.html', {'menu_items': menu_items, 'table_id': table_id})
 
 def customization_page(request, table_id, item_id):
     form = CustomizationForm()
@@ -46,7 +44,8 @@ def customization_page(request, table_id, item_id):
 
             messages.success(request, "Item successfully added to cart!")
 
-            return render(request, 'order/customization_page.html', {'item':item, 'form': form, 'table_id': table_id})
+            # return render(request, 'order/customization_page.html', {'item':item, 'form': form, 'table_id': table_id})
+            return render(request, 'cart/cart_summary.html')
         else:
             form = CustomizationForm()
 

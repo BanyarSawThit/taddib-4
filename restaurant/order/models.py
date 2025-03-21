@@ -33,7 +33,7 @@ class Item(models.Model):
 
 class Customization(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='customizations')
-    meat = models.CharField(max_length=50, choices=[('Beef', 'Beef'), ('Chicken', 'Chicken'), ('None', 'None')])
+    meat = models.CharField(max_length=50, choices=[('Beef', 'Beef'), ('Chicken', 'Chicken')], blank=True, null=True)
     spicy_level = models.CharField(max_length=50, choices=[('Mild', 'Mild'), ('Medium', 'Medium'), ('High', 'High')])
     extra_cost = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
 
